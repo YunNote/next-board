@@ -1,11 +1,17 @@
 import AppLayout from '@/components/layouts/AppLayout'
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import '@/styles/globals.css'
+import wrapper from '@/store'
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const {pageProps} = props;
   return (
     <AppLayout>
       <Component {...pageProps} />
     </AppLayout>
   )
 }
+
+
+export default  wrapper.withRedux(App);
